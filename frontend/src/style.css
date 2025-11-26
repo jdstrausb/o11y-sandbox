@@ -1,0 +1,9 @@
+@import "tailwindcss";
+
+ /* 2. Configure Dark Mode "Class Strategy" (Optional)  */
+@variant dark (&:where(.dark, .dark *));
+
+html, body, #app {
+  height: 100%;
+  margin: 0;
+}
