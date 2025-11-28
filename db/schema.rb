@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_11_24_211541) do
+ActiveRecord::Schema[8.0].define(version: 2025_11_28_160341) do
   create_table "authors", force: :cascade do |t|
     t.string "name"
     t.datetime "created_at", null: false
@@ -23,6 +23,16 @@ ActiveRecord::Schema[8.0].define(version: 2025_11_24_211541) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["author_id"], name: "index_books_on_author_id"
+  end
+
+  create_table "log_entries", force: :cascade do |t|
+    t.datetime "timestamp"
+    t.string "severity"
+    t.text "message"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["severity"], name: "index_log_entries_on_severity"
+    t.index ["timestamp"], name: "index_log_entries_on_timestamp"
   end
 
   create_table "users", force: :cascade do |t|
