@@ -3,6 +3,8 @@ module Api
   module V1
     class LogEntriesController < ApplicationController
       def index
+        # sleep 1 # testing the Skeleton Screen loading state
+
         # 1. Base Scope: Always ensure deterministic ordering for logs
         logs = LogEntry.order(timestamp: :desc)
 

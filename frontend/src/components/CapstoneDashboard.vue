@@ -74,38 +74,54 @@ onMounted(() => {
         </thead>
         <tbody class="bg-white dark:bg-slate-800 divide-y divide-gray-200 dark:divide-slate-700">
           
-          <!-- Loading State (Simple Text for now) -->
-          <tr v-if="loading">
-            <td colspan="3" class="px-6 py-10 text-center text-gray-500 dark:text-gray-400">Loading stream...</td>
-          </tr>
+          <!-- SKELETON STATE (Shows when loading) -->
+          <template v-if="loading">
+            <tr v-for="i in 5" :key="i" class="animate-pulse">
+              <!-- Timestamp Column -->
+              <td class="px-6 py-4 whitespace-nowrap">
+                <div class="h-4 bg-gray-200 dark:bg-slate-700 rounded w-24"></div>
+              </td>
+              <!-- Severity Badge Column -->
+              <td class="px-6 py-4 whitespace-nowrap">
+                <div class="h-5 bg-gray-200 dark:bg-slate-700 rounded-full w-16"></div>
+              </td>
+              <!-- Message Column -->
+              <td class="px-6 py-4 w-full">
+                <div class="h-4 bg-gray-200 dark:bg-slate-700 rounded w-3/4 mb-2"></div>
+                <div class="h-4 bg-gray-200 dark:bg-slate-700 rounded w-1/2"></div>
+              </td>
+            </tr>
+          </template>
 
-          <!-- The Loop -->
-          <tr v-else v-for="log in logs" :key="log.id" 
-              class="transition-colors duration-150"
-              :class="{
-                'bg-red-50 dark:bg-red-900/30 hover:bg-red-100 dark:hover:bg-red-900/40': log.severity === 'error' || log.severity === 'fatal',
-                'bg-yellow-50 dark:bg-yellow-900/30 hover:bg-yellow-100 dark:hover:bg-yellow-900/40': log.severity === 'warn',
-                'hover:bg-gray-50 dark:hover:bg-slate-700/50': log.severity === 'info' || log.severity === 'debug'
-              }"
-          >
-            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400 font-mono">
-              {{ new Date(log.timestamp).toLocaleTimeString() }}
-            </td>
-            <td class="px-6 py-4 whitespace-nowrap">
-              <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full uppercase"
+          <!-- DATA STATE (Shows when NOT loading) -->
+          <template v-else>
+            <tr v-for="log in logs" :key="log.id" 
+                class="transition-colors duration-150"
                 :class="{
-                  'bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-200': log.severity === 'error' || log.severity === 'fatal',
-                  'bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-200': log.severity === 'warn',
-                  'bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200': log.severity === 'info',
-                  'bg-gray-100 text-gray-800 dark:bg-gray-700 dark:text-gray-300': log.severity === 'debug'
-                }">
-                {{ log.severity }}
-              </span>
-            </td>
-            <td class="px-6 py-4 text-sm text-gray-700 dark:text-gray-300">
-              {{ log.message }}
-            </td>
-          </tr>
+                  'bg-red-50 dark:bg-red-900/30 hover:bg-red-100 dark:hover:bg-red-900/40': log.severity === 'error' || log.severity === 'fatal',
+                  'bg-yellow-50 dark:bg-yellow-900/30 hover:bg-yellow-100 dark:hover:bg-yellow-900/40': log.severity === 'warn',
+                  'hover:bg-gray-50 dark:hover:bg-slate-700/50': log.severity === 'info' || log.severity === 'debug'
+                }"
+            >
+              <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400 font-mono">
+                {{ new Date(log.timestamp).toLocaleTimeString() }}
+              </td>
+              <td class="px-6 py-4 whitespace-nowrap">
+                <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full uppercase"
+                  :class="{
+                    'bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-200': log.severity === 'error' || log.severity === 'fatal',
+                    'bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-200': log.severity === 'warn',
+                    'bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200': log.severity === 'info',
+                    'bg-gray-100 text-gray-800 dark:bg-gray-700 dark:text-gray-300': log.severity === 'debug'
+                  }">
+                  {{ log.severity }}
+                </span>
+              </td>
+              <td class="px-6 py-4 text-sm text-gray-700 dark:text-gray-300">
+                {{ log.message }}
+              </td>
+            </tr>
+          </template>
         </tbody>
       </table>
     </div>
