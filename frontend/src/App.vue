@@ -1,8 +1,6 @@
 <script setup>
 import { ref } from 'vue';
-import StatusBadge from './components/StatusBadge.vue';
-import MetricChart from './components/MetricChart.vue';
-import LogList from './components/LogList.vue';
+import CapstoneDashboard from './components/CapstoneDashboard.vue';
 
 // State for Dark Mode
 const isDark = ref(true); // Default to dark for observability tools
@@ -27,20 +25,7 @@ const isDark = ref(true); // Default to dark for observability tools
         </button>
       </header>
 
-      <div class="max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-6">
-        <!-- <div class="col-span-1">
-          <Counter />
-        </div> -->
-        <div class="col-span-3">
-          <MetricChart />
-        </div>
-      </div>
-      
-      <hr class="my-8 border-gray-300 dark:border-slate-700" />
-      
-      <div class="max-w-4xl mx-auto">
-        <LogList />
-      </div>
+      <CapstoneDashboard />
 
     </main>
   </div>
